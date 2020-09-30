@@ -1,0 +1,14 @@
+{
+  "id": "{66A77798-A3FD-4D6C-85CF-47B9DB0B994C}",
+  "name": "DeviceSwitcher",
+  "type": 3,
+  "vendor": "Andreas",
+  "aliases": 
+  [
+	  "DeviceSwitcher"
+  ],
+  "parentRequirements": [],
+  "childRequirements": [],
+  "implemented": [],
+  "prefix": "DEVSWITCHER"
+}
