@@ -121,7 +121,7 @@ class DeviceSwitcher extends IPSModule {
 		switch ($Ident) {
 		
 			case "Status":
-				SetValue($Ident, $Value);
+				SetValue($this->GetIDForIdent($Ident), $Value);
 				break;
 			default:
 				throw new Exception("Invalid Ident");
