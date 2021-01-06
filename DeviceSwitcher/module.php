@@ -97,6 +97,7 @@ class DeviceSwitcher extends IPSModule {
 		if (! GetValue($this->GetIDForIdent("Status")) ) {
 			
 			$this->LogMessage("Device will not be checked because checking is deactivated","DEBUG");
+			return;
 		}
 		
 		$sourceValue = GetValue($this->ReadPropertyInteger("SourceVariable"));
