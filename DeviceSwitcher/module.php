@@ -78,6 +78,7 @@ class DeviceSwitcher extends IPSModule {
 
 	}
 	
+	// Version 1.0
 	protected function LogMessage($message, $severity = 'INFO') {
 		
 		$logMappings = Array();
@@ -93,7 +94,7 @@ class DeviceSwitcher extends IPSModule {
 		}
 		
 		$messageComplete = $severity . " - " . $message;
-		parent::LogMessage($this->ReadPropertyString('Sender') . " - " . $this->InstanceID, $logMappings[$severity]);
+		parent::LogMessage($messageComplete, $logMappings[$severity]);
 	}
 
 	public function RefreshInformation() {
@@ -122,6 +123,7 @@ class DeviceSwitcher extends IPSModule {
 		
 	}
 	
+	// version 1.0
 	protected function RequestActionWithBackOff($variable, $value) {
 		
 		$retries = 4;
