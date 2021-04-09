@@ -81,11 +81,11 @@ class DeviceSwitcher extends IPSModule {
 	protected function LogMessage($message, $severity = 'INFO') {
 		
 		$logMappings = Array();
-		$logMappings['DEBUG'] 	= 'KL_DEBUG';
-		$logMappings['INFO']	= 'KL_MESSAGE';
-		$logMappings['NOTIFY']	= 'KL_NOTIFY';
-		$logMappings['WARN'] 	= 'KL_WARNING';
-		$logMappings['CRIT']	= 'KL_ERROR';
+		$logMappings['DEBUG'] 	= 10206;
+		$logMappings['INFO']	= 10201;
+		$logMappings['NOTIFY']	= 10203;
+		$logMappings['WARN'] 	= 10204;
+		$logMappings['CRIT']	= 10205;
 		
 		if ( ($severity == 'DEBUG') && ($this->ReadPropertyBoolean('DebugOutput') == false )) {
 			
@@ -93,7 +93,7 @@ class DeviceSwitcher extends IPSModule {
 		}
 		
 		$messageComplete = $severity . " - " . $message;
-		parent::LogMessage($this->ReadPropertyString('Sender') . " - " . $this->InstanceID, $messageComplete);
+		parent::LogMessage($this->ReadPropertyString('Sender') . " - " . $this->InstanceID, $logMappings[$severity]);
 	}
 
 	public function RefreshInformation() {
