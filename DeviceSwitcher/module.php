@@ -80,14 +80,20 @@ class DeviceSwitcher extends IPSModule {
 	
 	protected function LogMessage($message, $severity = 'INFO') {
 		
+		$logMappings = Array();
+		$logMappings['DEBUG'] 	= 'KL_DEBUG';
+		$logMappings['INFO']	= 'KL_MESSAGE';
+		$logMappings['NOTIFY']	= 'KL_NOTIFY';
+		$logMappings['WARN'] 	= 'KL_WARNING';
+		$logMappings['CRIT']	= 'KL_ERROR';
+		
 		if ( ($severity == 'DEBUG') && ($this->ReadPropertyBoolean('DebugOutput') == false )) {
 			
 			return;
 		}
 		
 		$messageComplete = $severity . " - " . $message;
-		
-		IPS_LogMessage($this->ReadPropertyString('Sender') . " - " . $this->InstanceID, $messageComplete);
+		parent::LogMessage($this->ReadPropertyString('Sender') . " - " . $this->InstanceID, $messageComplete);
 	}
 
 	public function RefreshInformation() {
