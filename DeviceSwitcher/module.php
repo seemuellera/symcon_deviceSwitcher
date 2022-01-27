@@ -25,6 +25,7 @@ class DeviceSwitcher extends IPSModule {
 		$this->RegisterPropertyInteger("SourceVariable",0);
 		$this->RegisterPropertyBoolean("InvertSource",false);
 		$this->RegisterPropertyInteger("TargetStatusVariable",0);
+		$this->RegisterPropertyBoolean("ForceSwitching",false);
 		
 		// Variables
 		$this->RegisterVariableBoolean("Status","Status","~Switch");
@@ -69,6 +70,7 @@ class DeviceSwitcher extends IPSModule {
 		$form['elements'][] = Array("type" => "SelectVariable", "name" => "SourceVariable", "caption" => "Source Variable (must be boolean)");
 		$form['elements'][] = Array("type" => "CheckBox", "name" => "InvertSource", "caption" => "Invert source variable (false turns the device on)");
 		$form['elements'][] = Array("type" => "SelectVariable", "name" => "TargetStatusVariable", "caption" => "Target Status Variable");
+		$form['elements'][] = Array("type" => "CheckBox", "name" => "ForceSwitching", "caption" => "Force Switching (Switch even when target is already in that state)");
 		
 		// Add the buttons for the test center
 		$form['actions'][] = Array(	"type" => "Button", "label" => "Refresh", "onClick" => 'DEVSWITCHER_RefreshInformation($id);');
@@ -115,13 +117,19 @@ class DeviceSwitcher extends IPSModule {
 			$sourceValue = ! $sourceValue;
 		}
 		
-		
-		if (GetValue($this->ReadPropertyInteger("TargetStatusVariable")) != $sourceValue) {
+		if ($this->ReadPropertyBoolean("ForceSwitching") ) {
 			
 			$this->LogMessage("Switching Target Device","DEBUG");
 			$this->RequestActionWithBackOff($this->ReadPropertyInteger("TargetStatusVariable"), $sourceValue);
 		}
-		
+		else {
+			
+			if (GetValue($this->ReadPropertyInteger("TargetStatusVariable")) != $sourceValue) {
+				
+				$this->LogMessage("Switching Target Device","DEBUG");
+				$this->RequestActionWithBackOff($this->ReadPropertyInteger("TargetStatusVariable"), $sourceValue);
+			}
+		}
 	}
 	
 	// version 1.0
