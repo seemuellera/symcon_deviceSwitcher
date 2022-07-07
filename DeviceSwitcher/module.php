@@ -120,14 +120,20 @@ class DeviceSwitcher extends IPSModule {
 		if ($this->ReadPropertyBoolean("ForceSwitching") ) {
 			
 			$this->LogMessage("Switching Target Device","DEBUG");
-			$this->RequestActionWithBackOff($this->ReadPropertyInteger("TargetStatusVariable"), $sourceValue);
+
+			// Switched back to single Request Action because of more reobust implementation in 6.3
+			// $this->RequestActionWithBackOff($this->ReadPropertyInteger("TargetStatusVariable"), $sourceValue);
+			RequestAction($this->ReadPropertyInteger("TargetStatusVariable"), $sourceValue);
 		}
 		else {
 			
 			if (GetValue($this->ReadPropertyInteger("TargetStatusVariable")) != $sourceValue) {
 				
 				$this->LogMessage("Switching Target Device","DEBUG");
-				$this->RequestActionWithBackOff($this->ReadPropertyInteger("TargetStatusVariable"), $sourceValue);
+
+				// Switched back to single Request Action because of more reobust implementation in 6.3
+				// $this->RequestActionWithBackOff($this->ReadPropertyInteger("TargetStatusVariable"), $sourceValue);
+				RequestAction($this->ReadPropertyInteger("TargetStatusVariable"), $sourceValue);
 			}
 		}
 	}
