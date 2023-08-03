@@ -48,8 +48,23 @@ class DeviceSwitcher extends IPSModule {
 
 		$newInterval = $this->ReadPropertyInteger("RefreshInterval") * 1000;
 		$this->SetTimerInterval("RefreshInformation", $newInterval);
+
+		// Clean old references
+		$referenceList = $this->GetReferenceList();
+		foreach ($referenceList as $currentReference) {
+
+			$this->UnregisterReference($this->InstanceID, $currentReference);
+		}
+
+		// Clean old message registration
+		$messagesList = $this->GetMessageList();
+		foreach ($messagesList as $currentMessage) {
+
+			$this->UnregisterMessage($this->InstanceID, $currentMessage);
+		}
 		
 		$this->RegisterMessage($this->ReadPropertyInteger("SourceVariable"), VM_UPDATE);
+		$this->RegisterReference($this->ReadPropertyInteger("SourceVariable"));
 			
 		// Diese Zeile nicht löschen
 		parent::ApplyChanges();
