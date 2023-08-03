@@ -60,7 +60,7 @@ class DeviceSwitcher extends IPSModule {
 		$messagesList = $this->GetMessageList();
 		foreach ($messagesList as $currentMessage) {
 
-			$this->UnregisterMessage($currentMessage, VM_CHANGE);
+			$this->UnregisterMessage($currentMessage, VM_UPDATE);
 		}
 		
 		$this->RegisterMessage($this->ReadPropertyInteger("SourceVariable"), VM_UPDATE);
